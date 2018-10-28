@@ -1,4 +1,4 @@
-"""Unit tests for Figcan - test the base dictionary access interface
+"""Figcan tests - test mapping interface access
 """
 import pytest
 
