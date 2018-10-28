@@ -17,10 +17,5 @@ setup(
     long_description=long_desc,
     long_description_content_type='text/markdown',
     install_requires=[],
-    test_require=[
-        'pytest',
-        'pytest-flake8',
-        'pytest-mypy',
-        'pytest-isort'
-    ],
+    python_requires='>=3.6',
 )

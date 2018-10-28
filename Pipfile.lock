@@ -1,12 +1,10 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b606073bf693da82b36ed646147b0e47bbe7cecbc4dd6ae5922135cfcf1d4477"
+            "sha256": "f04868961ae3089d7e709da9483732ba4f3ad1e54ed251ae15116167ee6078ad"
         },
         "pipfile-spec": 6,
-        "requires": {
-            "python_version": "3.5"
-        },
+        "requires": {},
         "sources": [
             {
                 "name": "pypi",
@@ -15,11 +13,7 @@
             }
         ]
     },
-    "default": {
-        "figcan": {
-            "path": "."
-        }
-    },
+    "default": {},
     "develop": {
         "atomicwrites": {
             "hashes": [
@@ -36,6 +30,7 @@
             "version": "==18.2.0"
         },
         "figcan": {
+            "editable": true,
             "path": "."
         },
         "flake8": {
