@@ -100,7 +100,7 @@ def _recursive_merge(dct: Dict[str, Any], merge_dct: Dict[str, Any], raise_on_mi
             else:
                 dct[k] = merge_dct[k]
         else:
-            message = f"Unknown configuration key: '{k}'"
+            message = "Unknown configuration key: '{k}'".format(k=k)
             if raise_on_missing:
                 raise KeyError(message)
             else:
