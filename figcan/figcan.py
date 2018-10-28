@@ -3,6 +3,7 @@
 import logging
 from collections.abc import Mapping as BaseMapping
 from copy import deepcopy
+from typing import Iterable  # noqa: F401
 from typing import Any, Dict, Generator, Iterator, Optional, Tuple
 
 
@@ -11,7 +12,7 @@ class Configuration(BaseMapping):
     """
     def __init__(self, base_config: dict):
         self._data = deepcopy(base_config)
-        self._flat_pointers = {}
+        self._flat_pointers = {}  # type: Dict[Tuple[str, ...], Tuple[Dict[str, Any], str]]
 
     def apply(self, config: dict, raise_on_unknown_key: bool = True) -> None:
         """Apply additional configuration from a dictionary
@@ -29,7 +30,7 @@ class Configuration(BaseMapping):
         """
         self._init_flat_pointers()
         try:
-            config_obj_keys = vars(config_obj).keys()
+            config_obj_keys = vars(config_obj).keys()  # type: Iterable[str]
         except TypeError:
             config_obj_keys = filter(lambda k: k[0] != '_', dir(config_obj))
 
