@@ -1,0 +1,1 @@
+from .figcan import Configuration

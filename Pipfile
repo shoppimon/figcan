@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+figcan = {path = "."}
+
+[dev-packages]
+pytest = "~=3.9"
+pytest-mypy = "~=0.3"
+"pytest-flake8" = "~=1.0"
+pytest-isort = "~=0.2"
+figcan = {editable = true, path = "."}
+
+[requires]
+python_version = "3.5"
