@@ -9,6 +9,8 @@ locations, and while staying super simple to use for common use cases.
 
 Figcan has no runtime dependencies other than Python version 3.5 or newer. 
 
+[![Build Status](https://travis-ci.org/shoppimon/figcan.svg?branch=master)](https://travis-ci.org/shoppimon/figcan)
+
 Figcan's Philosophy
 -------------------
 *Figcan*'s design is based on a few basic assumptions:
