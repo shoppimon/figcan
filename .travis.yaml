@@ -1,0 +1,14 @@
+language: python
+
+python:
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "pypy3"
+
+install:
+  - pip install --upgrade pip pipenv
+  - pipenv install --dev --system
+
+script:
+  - py.test --flake8 --mypy --isort tests/ figcan/
