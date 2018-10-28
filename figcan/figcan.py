@@ -69,7 +69,7 @@ class Configuration(BaseMapping):
         """
         self._init_flat_pointers()
         for key_stack, (container, orig_key) in self._flat_pointers.items():
-            flat_key = f'{prefix}{namespace_separator.join(key_stack)}'
+            flat_key = '{prefix}{joined_key}'.format(prefix=prefix, joined_key=namespace_separator.join(key_stack))
             if flat_key in config:
                 container[orig_key] = config[flat_key]
 
