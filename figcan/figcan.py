@@ -127,6 +127,7 @@ def _create_flat_pointers(dct, key_stack=()):
     for k in dct.keys():
         current_key = key_stack + (k,)
         if isinstance(dct[k], BaseMapping):
-            yield from _create_flat_pointers(dct[k], current_key)
+            for flat_ptr in _create_flat_pointers(dct[k], current_key):
+                yield flat_ptr
         else:
             yield (current_key, dct, k)
