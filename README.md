@@ -1,13 +1,13 @@
 Figcan - Minimalistic Configuration Handling Library
 ==================================================== 
-*Figcan* is a minimalistic configuration handling library for Python 3.5 and 
-up. 
+*Figcan* is a minimalistic configuration handling library for Python.
 
 It is designed to help you manage runtime configuration coming from different 
 sources, without making any assumptions about configuration file formats and 
 locations, and while staying super simple to use for common use cases.
 
-Figcan has no runtime dependencies other than Python version 3.5 or newer. 
+Figcan has no runtime dependencies other than Python versions 2.7 or 3.4 and 
+up. 
 
 [![Build Status](https://travis-ci.org/shoppimon/figcan.svg?branch=master)](https://travis-ci.org/shoppimon/figcan)
 
