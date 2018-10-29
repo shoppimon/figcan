@@ -16,8 +16,8 @@ matrix:
       sudo: true
 
 install:
-  - pip install --upgrade pip pipenv
-  - pipenv install --deploy --dev --system
+  - pip install --upgrade pip pip-tools
+  - pip-sync requirement.txt dev-requirement.txt
 
 script:
   - py.test $PYTEST_FLAGS tests/ figcan/

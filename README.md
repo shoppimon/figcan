@@ -60,13 +60,14 @@ Getting Started
 ---------------
 
 ### Installation
-It is recommended to add *Figcan* to your project using `pipenv` or `pip`:
+It is recommended to add *Figcan* to your project using `pip`:
 
     pip install figcan
 
-Or:
+You should also be able to install directly from the source tree pulled from 
+git:
 
-    pipenv install figcan
+    `TBD`
 
 ### Using in your project
 Typically, *Figcan* is used by reading configuration from all sources at the 
