@@ -7,7 +7,7 @@ name = "pypi"
 
 [dev-packages]
 pytest = "~=3.9"
-pytest-mypy = "~=0.3"
+pytest-mypy = { version = "~=0.3", python_version = ">=3.4" }
 "pytest-flake8" = "~=1.0"
 pytest-isort = "~=0.2"
 twine = "~=1.12"

@@ -5,7 +5,7 @@ matrix:
     - python: 2.7
       env: PYTEST_FLAGS="--flake8 --isort"
     - python: 3.4
-      env: PYTEST_FLAGS="--flake8 --isort"
+      env: PYTEST_FLAGS="--flake8 --isort --mypy"
     - python: 3.5
       env: PYTEST_FLAGS="--flake8 --isort --mypy"
     - python: 3.6
@@ -17,7 +17,7 @@ matrix:
 
 install:
   - pip install --upgrade pip pipenv
-  - pipenv install --dev --system
+  - pipenv install --deploy --dev --system
 
 script:
   - py.test $PYTEST_FLAGS tests/ figcan/
