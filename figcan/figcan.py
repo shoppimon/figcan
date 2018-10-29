@@ -16,8 +16,7 @@
 
 import logging
 from copy import deepcopy
-from typing import Iterable  # noqa: F401
-from typing import Any, Dict, Generator, Iterator, Optional, Tuple
+from typing import Any, Dict, Generator, Iterable, Iterator, Optional, Tuple  # noqa: F401
 
 try:
     from collections.abc import Mapping as BaseMapping
