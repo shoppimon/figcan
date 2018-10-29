@@ -3,7 +3,7 @@ language: python
 matrix:
   include:
     - python: 2.7
-      env: PYTEST_FLAGS="--flake8 --isort"
+      env: PYTEST_FLAGS="--flake8 --isort" PY_VER=_2.7
     - python: 3.4
       env: PYTEST_FLAGS="--flake8 --isort --mypy"
     - python: 3.5
@@ -17,7 +17,8 @@ matrix:
 
 install:
   - pip install --upgrade pip pip-tools
-  - pip-sync requirements.txt dev-requirements.txt
+  - pip-sync requirements${PY_VER}.txt dev-requirements${PY_VER}.txt
+  - pip install -e .
 
 script:
   - py.test $PYTEST_FLAGS tests/ figcan/
