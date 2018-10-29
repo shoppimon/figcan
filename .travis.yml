@@ -1,12 +1,17 @@
 language: python
 
-python:
-  - 3.5
-  - 3.6
-
 matrix:
   include:
+    - python: 2.7
+      env: PYTEST_FLAGS="--flake8 --isort"
+    - python: 3.4
+      env: PYTEST_FLAGS="--flake8 --isort"
+    - python: 3.5
+      env: PYTEST_FLAGS="--flake8 --isort --mypy"
+    - python: 3.6
+      env: PYTEST_FLAGS="--flake8 --isort --mypy"
     - python: 3.7
+      env: PYTEST_FLAGS="--flake8 --isort --mypy"
       dist: xenial
       sudo: true
 
@@ -15,4 +20,4 @@ install:
   - pipenv install --dev --system
 
 script:
-  - py.test --flake8 --mypy --isort tests/ figcan/
+  - py.test $PYTEST_FLAGS tests/ figcan/

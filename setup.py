@@ -33,5 +33,5 @@ setup(
     long_description=long_desc,
     long_description_content_type='text/markdown',
     install_requires=[],
-    python_requires='>=3.5',
+    python_requires='>=2.7',
 )

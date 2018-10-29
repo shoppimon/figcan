@@ -15,20 +15,26 @@
 # limitations under the License.
 
 import logging
-from collections.abc import Mapping as BaseMapping
 from copy import deepcopy
 from typing import Iterable  # noqa: F401
 from typing import Any, Dict, Generator, Iterator, Optional, Tuple
+
+try:
+    from collections.abc import Mapping as BaseMapping
+except ImportError:
+    from collections import Mapping as BaseMapping
 
 
 class Configuration(BaseMapping):
     """Configuration container
     """
-    def __init__(self, base_config: dict):
+    def __init__(self, base_config):
+        # type: (Dict[str, Any]) -> None
         self._data = deepcopy(base_config)
         self._flat_pointers = {}  # type: Dict[Tuple[str, ...], Tuple[Dict[str, Any], str]]
 
-    def apply(self, config: dict, raise_on_unknown_key: bool = True) -> None:
+    def apply(self, config, raise_on_unknown_key=True):
+        # type: (Dict[str, Any], bool) -> None
         """Apply additional configuration from a dictionary
 
         This will look for dictionary items that exist in the base_config any apply their values on the current
@@ -36,7 +42,8 @@ class Configuration(BaseMapping):
         """
         _recursive_merge(self._data, config, raise_on_unknown_key)
 
-    def apply_object(self, config_obj: Any, apply_on: Optional[Tuple[str, ...]] = None) -> None:
+    def apply_object(self, config_obj, apply_on=None):
+        # type: (object, Optional[Tuple[str, ...]]) -> None
         """Apply additional configuration from any Python object
 
         This will look for object attributes that exist in the base_config and apply their values  on the current
@@ -58,7 +65,8 @@ class Configuration(BaseMapping):
                 container, orig_key = self._flat_pointers[flat_key]
                 container[orig_key] = getattr(config_obj, config_key)
 
-    def apply_flat(self, config: dict, namespace_separator: str = '_', prefix: str = ''):
+    def apply_flat(self, config, namespace_separator='_', prefix=''):
+        # type: (Dict[str, Any], str, str) -> None
         """Apply additional configuration from a flattened dictionary
 
         This will look for dictionary items that match flattened keys from base_config and apply their values on the
@@ -78,17 +86,21 @@ class Configuration(BaseMapping):
             return
         self._flat_pointers = {ks: (container, k) for ks, container, k in _create_flat_pointers(self._data)}
 
-    def __getitem__(self, k: str) -> Any:
+    def __getitem__(self, k):
+        # type: (str) -> Any
         return self._data[k]
 
-    def __len__(self) -> int:
+    def __len__(self):
+        # type: () -> int
         return len(self._data)
 
-    def __iter__(self) -> Iterator[str]:
+    def __iter__(self):
+        # type: () -> Iterator[str]
         return iter(self._data)
 
 
-def _recursive_merge(dct: Dict[str, Any], merge_dct: Dict[str, Any], raise_on_missing: bool) -> dict:
+def _recursive_merge(dct, merge_dct, raise_on_missing):
+    # type: (Dict[str, Any], Dict[str, Any], bool) -> Dict[str, Any]
     """Recursive dict merge
 
     This modifies `dct` in place. Use `copy.deepcopy` if this behavior is not desired.
@@ -109,8 +121,8 @@ def _recursive_merge(dct: Dict[str, Any], merge_dct: Dict[str, Any], raise_on_mi
     return dct
 
 
-def _create_flat_pointers(dct: Dict[str, Any], key_stack: Tuple[str, ...] = ()) -> \
-        Generator[Tuple[Tuple[str, ...], Dict[str, Any], str], None, None]:
+def _create_flat_pointers(dct, key_stack=()):
+    # type: (Dict[str, Any], Tuple[str, ...]) -> Generator[Tuple[Tuple[str, ...], Dict[str, Any], str], None, None]
     """Create a flattened dictionary of "key stacks" -> (value container, key)
     """
     for k in dct.keys():
