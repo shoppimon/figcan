@@ -17,7 +17,7 @@ matrix:
 
 install:
   - pip install --upgrade pip pip-tools
-  - pip-sync requirement.txt dev-requirement.txt
+  - pip-sync requirements.txt dev-requirements.txt
 
 script:
   - py.test $PYTEST_FLAGS tests/ figcan/
