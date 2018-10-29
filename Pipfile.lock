@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "8a9e811fb5abac509e558531a35d31c5132aa59668f624ceb6634313f716ba22"
+            "sha256": "a3aec99892031cb87dffba90ebd12865e0b0290b8c90b803b5e23c06691e28d5"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -57,10 +57,6 @@
                 "sha256:7a4bd47eaf6596e1295ecb11361139febe29b084a87bf005bf899f9a42edc3c6"
             ],
             "version": "==0.14"
-        },
-        "figcan": {
-            "editable": true,
-            "path": "."
         },
         "flake8": {
             "hashes": [
@@ -185,6 +181,7 @@
                 "sha256:acc653210e7d8d5c72845a5248f00fd33f4f3379ca13fe56cfc7b749b5655c3e"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.4.0'",
             "version": "==0.3.2"
         },
         "readme-renderer": {
