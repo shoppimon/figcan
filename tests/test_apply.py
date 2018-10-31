@@ -19,7 +19,7 @@ from collections import namedtuple
 
 import pytest
 
-from figcan import Configuration
+from figcan import Configuration, Extensible
 
 
 def test_apply_nested_dict(base_config):
@@ -49,6 +49,17 @@ def test_apply_nokey_ignored(base_config):
     assert 'foos' not in cfg
 
 
+def test_apply_nokey_flexible_config_added(base_config):
+    base_config['logging']['handlers'] = Extensible(base_config['logging']['handlers'])
+    cfg = Configuration(base_config)
+    cfg.apply({"foo": "baz", "logging": {"handlers": {"handler3": 'new handler'}}})
+
+    assert cfg['foo'] == 'baz'
+    assert cfg['logging']['level'] == 5
+    assert cfg['logging']['handlers']['handler1'] == 'some config'
+    assert cfg['logging']['handlers']['handler3'] == 'new handler'
+
+
 def test_apply_flat_dict(base_config):
     cfg = Configuration(base_config)
     flat_overrides = {'foo': 'baz',
@@ -75,6 +86,17 @@ def test_apply_flat_dict_prefix_stripped(base_config):
     assert cfg['foo'] == 'bar'
     assert cfg['is_enabled'] is True
     assert cfg['logging']['level'] == 6
+
+
+def test_apply_flat_dict_prefix_stripped_missing_keys(base_config):
+    cfg = Configuration(base_config)
+    flat_overrides = {'figcan_logging_level': 6,
+                      'figcan_logging_shmevel': 9}
+
+    cfg.apply_flat(flat_overrides, prefix='figcan_')
+
+    assert 'shmevel' not in cfg['logging']
+    assert 'logging_shmevel' not in cfg
 
 
 def test_apply_flat_dict_custom_nesting_separator(base_config):

@@ -118,6 +118,33 @@ changed like so:
 config.apply(yaml.safe_load(f), raise_on_unknown_key=False)
 ```
 
+If you want to allow merging new configuration keys into a configuration 
+section, you will need to define that section as `Extensible` in the base
+configuration:
+
+```python
+from figcan import Configuration, Extensible
+
+default_config = dict({  # Base configuration keys are known ahead and static 
+    'bind_port': 5656,
+    'db': {  # Database settings keys are known ahead and static
+        'hostname': 'db.local',
+        'username': 'foobar',
+        'password': 'blahblah'
+    } ,
+    'logging': Extensible({  # But logging settings are flexible, and new handlers / loggers can be defined
+        'handlers': {
+            'handler_1': '...'
+        }
+    })
+})
+
+config = Configuration(default_config)
+
+# This will not raise an exception and 'handler_2' config will be available in `config`:
+config.apply({"logging": {"handlers": {"handler_2": "... more config ..."}}})
+```
+
 #### Applying configuration from environment variables:
 
 #### Applying configuration from command line arguments:
@@ -138,6 +165,11 @@ the idea here is that the initial `default_config` dict will also contain some
 type annotations in some form. These will be used to coerce override values 
 (e.g. when coming as strings from environment variables) and to do some 
 validation when configuration is applied. 
+
+### Allow defining "flexible" vs "non-flexible" configuration mapping
+For example, a `logging` section used for `logging.config.dictConfig` typically
+needs to have a flexible structure. However, making everything flexible can 
+lead to typos etc. not being detected.
 
 ## Credits
 Figcan was created by the [Shoppimon](https://www.shoppimon.com) team and is in

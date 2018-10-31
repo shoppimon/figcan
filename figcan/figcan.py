@@ -98,6 +98,14 @@ class Configuration(BaseMapping):
         return iter(self._data)
 
 
+class Extensible(dict):
+    """A drop-in replacement for `dict` that can be used to describe base configuration sections.
+
+    When used, the system will allow adding unknown configuration keys to the configuration tree.
+    """
+    pass
+
+
 def _recursive_merge(dct, merge_dct, raise_on_missing):
     # type: (Dict[str, Any], Dict[str, Any], bool) -> Dict[str, Any]
     """Recursive dict merge
@@ -110,6 +118,8 @@ def _recursive_merge(dct, merge_dct, raise_on_missing):
                 dct[k] = _recursive_merge(dct[k], merge_dct[k], raise_on_missing)
             else:
                 dct[k] = merge_dct[k]
+        elif isinstance(dct, Extensible):
+            dct[k] = merge_dct[k]
         else:
             message = "Unknown configuration key: '{k}'".format(k=k)
             if raise_on_missing:
