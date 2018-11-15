@@ -146,8 +146,67 @@ config.apply({"logging": {"handlers": {"handler_2": "... more config ..."}}})
 ```
 
 #### Applying configuration from environment variables:
+Figcan allows you to easily merge configuration values from environment
+variables. This can be very useful in deployments where managing the 
+environment is easier than updating configuration files - for example Docker,
+Kubernetes or AWS Lambda deployments.  
+
+Typically, environment variables that should be applied on configuration 
+should have a common prefix, and a special character that is used to 
+designate configuration namespace nesting (this character could be a `_`). 
+
+Here is an example:
+
+```python
+
+# Assume same `default_config` as above
+
+# Assume the following environment variables are set:
+# MYAPP_DB_HOSTNAME=foobarhost
+# MYAPP_DB_PASSWORD=S3cRe7
+# MYAPP_LOGGING_HANDLERS_HANDLER_1=console
+
+import os
+from figcan import Configuration
+
+config = Configuration(default_config)
+
+# We do a little bit of transformation on environment vars
+env_config = {k.lower(): v for k, v in os.environ.items()}
+
+# This applies all environment variables starting with "myapp_" to matching configuration keys
+config.apply_flat(env_config, prefix='myapp_')
+
+print(config['db']['hostname'])  # prints foobarhost
+```
+
+If you want to use a more explicit namespace nesting separator, you can 
+specify it as well:
+
+```python
+# However if we use . as a seperator:
+# MYAPP.DB.HOSTNAME=foobarhost
+# MYAPP.DB.PASSWORD=S3cRe7
+# MYAPP.LOGGING_HANDLERS.HANDLER_1=console
+
+import os
+from figcan import Configuration
+
+config = Configuration(default_config)
+
+# We do a little bit of transformation on environment vars
+env_config = {k.lower(): v for k, v in os.environ.items()}
+
+# This applies all environment variables starting with "myapp_" to matching configuration keys
+config.apply_flat(env_config, namespace_separator='.', prefix='myapp.')
+```
+
+Note that `apply_flat` can typically be used to apply configuration from a flat
+key-value mapping container. This can also work for INI files and similar 
+formats, as long as they can be read into a dictionary. 
 
 #### Applying configuration from command line arguments:
+TBD 
 
 ## Some Alternatives to Consider
 There are many configuration handling libraries for Python. Some may be more 
