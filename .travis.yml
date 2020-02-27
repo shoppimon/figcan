@@ -4,8 +4,6 @@ matrix:
   include:
     - python: 2.7
       env: PYTEST_FLAGS="--flake8 --isort" PY_VER=_2.7
-    - python: 3.4
-      env: PYTEST_FLAGS="--flake8 --isort --mypy"
     - python: 3.5
       env: PYTEST_FLAGS="--flake8 --isort --mypy"
     - python: 3.6
