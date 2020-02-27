@@ -79,12 +79,14 @@ def test_apply_flat_dict_prefix_stripped(base_config):
     flat_overrides = {'foo': 'baz',
                       'figcan_is_enabled': True,
                       'figcan_logging_level': 6,
+                      'figcan_logging_handlers_handler1': 'something else',
                       'logging_level': 4}
 
     cfg.apply_flat(flat_overrides, prefix='figcan_')
 
     assert cfg['foo'] == 'bar'
     assert cfg['is_enabled'] is True
+    assert cfg['logging']['handlers']['handler1'] == 'something else'
     assert cfg['logging']['level'] == 6
 
 

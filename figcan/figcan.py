@@ -65,7 +65,7 @@ class Configuration(BaseMapping):
                 container[orig_key] = getattr(config_obj, config_key)
 
     def apply_flat(self, config, namespace_separator='_', prefix=''):
-        # type: (Dict[str, Any], str, str) -> None
+        # type: (BaseMapping[str, Any], str, str) -> None
         """Apply additional configuration from a flattened dictionary
 
         This will look for dictionary items that match flattened keys from base_config and apply their values on the
